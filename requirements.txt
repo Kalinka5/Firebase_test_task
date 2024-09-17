@@ -1,0 +1,14 @@
+google-cloud==0.34.0
+google-cloud-pubsub==2.23.1
+google-cloud-firestore==2.18.0
+google-cloud-functions==1.17.0
+google-cloud-bigquery==3.25.0
+google-cloud-storage==2.18.2
+google-cloud-logging==3.11.2
+google-cloud-tasks==2.16.5
+firebase-admin==6.5.0
+pytest==8.3.3
+pytest-mock==3.14.0
+python-dotenv==1.0.1
+functions-framework==3.8.1
+mock==5.1.0
