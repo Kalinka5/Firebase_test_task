@@ -1,3 +1,21 @@
+# Installation 📄
+
+### 1. Clone the repository:
+   ```bash
+   git clone https://github.com/Kalinka5/Firebase_test_task.git
+   ```
+### 2. Create a virtual environment and activate it:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   ```
+### 3. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+___
+
 # 🚀 Implementing in Projects
 
 ## 1) Get private keys of Secure and Unsecure projects
@@ -103,3 +121,17 @@ In our case:
 
 ## Result (Successfull JSON response):
 {"status": "success", "message": "Deposited 200.0 into wallet 1"}
+
+# ✅ Testing
+
+## Using 
+
+Write in console this command:
+```
+pytest --cov
+```
+
+## Result
+
+![image](https://github.com/user-attachments/assets/8f3c31a7-898b-4048-900e-ededbf9cc918)
+
