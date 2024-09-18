@@ -79,6 +79,20 @@ def test_rent_wallet_no_existing(secure_class, mock_firestore, mock_unsecure):
     mock_unsecure.link_wallet_to_user.assert_called_with('user_456', 1)
 
 
+def test_rent_wallet_user_not_exist(secure_class, mock_unsecure):
+    """Test rent_wallet raises ValueError when the user does not exist."""
+
+    # Mock the Firestore 'users' collection to return a non-existent user
+    mock_unsecure.db.collection().document().get.return_value.exists = False
+
+    # Define a non-existent user ID
+    non_existent_uid = 'non_existent_user'
+
+    # Attempt to rent a wallet for the non-existent user, should raise ValueError
+    with pytest.raises(ValueError, match=f"User with UID {non_existent_uid} does not exist."):
+        secure_class.rent_wallet(non_existent_uid)
+
+
 @pytest.mark.parametrize("wallet_number, amount", [
     (1, 0),  # Zero
     (2, 1),  # one digit

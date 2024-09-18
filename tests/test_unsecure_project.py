@@ -130,6 +130,26 @@ def test_unlink_wallet_from_non_existing_wallet(unsecure_class, mock_firestore):
     mock_firestore.collection('users').document().update.assert_not_called()
 
 
+def test_unlink_wallet_multiple_users_found(unsecure_class, mock_firestore):
+    """Test unlinking wallet from user when multiple users are found with the wallet number"""
+
+    wallet_number = 7777
+
+    # Simulate Firestore where multiple users are found with the given wallet number
+    mock_user1 = mock.MagicMock()
+    mock_user2 = mock.MagicMock()
+    mock_firestore.collection.return_value.where.return_value.limit.return_value.get.return_value = [
+        mock_user1, mock_user2]
+
+    unsecure_class.unlink_wallet_from_user(wallet_number)
+
+    # Ensure that the first user's rented_wallet is unlinked (limit=1 should guarantee one update)
+    mock_user1.reference.update.assert_called_with(
+        {'rented_wallet': firestore.DELETE_FIELD})
+    # Ensure no updates to the second user
+    mock_user2.reference.update.assert_not_called()
+
+
 @pytest.mark.parametrize("amount", [
     (0),  # Zero
     (1),  # one digit
@@ -183,10 +203,12 @@ def test_update_user_balance_negative_amount(unsecure_class, mock_firestore, amo
     user_mock.reference.update.assert_not_called()
 
 
-# Test updating user balance with no matching wallet number
 def test_update_user_balance_no_wallet(unsecure_class, mock_firestore):
+    """Test updating user balance with no matching wallet number"""
+
     wallet_number = 6666
     deposit_amount = 50
+
     # Simulate Firestore behavior where no user has the given wallet number
     mock_firestore.collection.return_value.where.return_value.limit.return_value.get.return_value = []
 
@@ -194,21 +216,3 @@ def test_update_user_balance_no_wallet(unsecure_class, mock_firestore):
 
     # Ensure no Firestore update is attempted if no matching user is found
     mock_firestore.collection('users').document().update.assert_not_called()
-
-
-# Test unlinking wallet from user when multiple users are found with the wallet number
-def test_unlink_wallet_multiple_users_found(unsecure_class, mock_firestore):
-    wallet_number = 7777
-    # Simulate Firestore where multiple users are found with the given wallet number
-    mock_user1 = mock.MagicMock()
-    mock_user2 = mock.MagicMock()
-    mock_firestore.collection.return_value.where.return_value.limit.return_value.get.return_value = [
-        mock_user1, mock_user2]
-
-    unsecure_class.unlink_wallet_from_user(wallet_number)
-
-    # Ensure that the first user's rented_wallet is unlinked (limit=1 should guarantee one update)
-    mock_user1.reference.update.assert_called_with(
-        {'rented_wallet': firestore.DELETE_FIELD})
-    # Ensure no updates to the second user
-    mock_user2.reference.update.assert_not_called()

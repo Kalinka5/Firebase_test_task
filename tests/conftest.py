@@ -1,8 +1,8 @@
 import pytest
 from unittest import mock
 
-from unsecure_project import Unsecure
-from secure_project import Secure
+from projects.unsecure_project import Unsecure
+from projects.secure_project import Secure
 
 
 @pytest.fixture

@@ -9,6 +9,7 @@ google-cloud-tasks==2.16.5
 firebase-admin==6.5.0
 pytest==8.3.3
 pytest-mock==3.14.0
+pytest-cov==5.0.0
 python-dotenv==1.0.1
 functions-framework==3.8.1
 mock==5.1.0

@@ -2,8 +2,8 @@ import functions_framework
 import json
 
 
-from unsecure_project import Unsecure
-from secure_project import Secure
+from projects.unsecure_project import Unsecure
+from projects.secure_project import Secure
 
 
 # Initialize Firestore DB and Pub/Sub
