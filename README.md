@@ -4,9 +4,13 @@
    ```bash
    git clone https://github.com/Kalinka5/Firebase_test_task.git
    ```
+### 2. Go to the project
+   ```bash
+   cd Firebase_test_task/
+   ```
 ### 2. Create a virtual environment and activate it:
    ```bash
-   python -m venv venv
+   python3 -m venv venv  # On Windos use python -m venv venv
    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
 ### 3. Install the required dependencies:
